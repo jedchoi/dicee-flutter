@@ -5,7 +5,7 @@ void main() {
   return runApp(
     MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.blue,
         appBar: AppBar(
           title: Text('Dicee'),
           backgroundColor: Colors.red,
@@ -16,7 +16,14 @@ void main() {
   );
 }
 
-class DicePage extends StatelessWidget {
+class DicePage extends StatefulWidget {
+  const DicePage({Key key}) : super(key: key);
+
+  @override
+  State<DicePage> createState() => _DicePageState();
+}
+
+class _DicePageState extends State<DicePage> {
   var leftDiceNumber = 1;
   var rightDiceNumber = 1;
   @override
@@ -27,7 +34,7 @@ class DicePage extends StatelessWidget {
           Expanded(
             child: TextButton(
                 onPressed: () {
-                  leftDiceNumber = Random().nextInt(6) + 1;
+                  randomDice();
                   print('Left button got pressed');
                 },
                 child: Image.asset('images/dice$leftDiceNumber.png')),
@@ -35,7 +42,7 @@ class DicePage extends StatelessWidget {
           Expanded(
             child: TextButton(
                 onPressed: () {
-                  rightDiceNumber = Random().nextInt(6) + 1;
+                  randomDice();
                   print('Right button got pressed');
                 },
                 child: Image.asset('images/dice$rightDiceNumber.png')),
@@ -43,5 +50,12 @@ class DicePage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void randomDice() {
+    setState(() {
+      leftDiceNumber = Random().nextInt(6) + 1;
+      rightDiceNumber = Random().nextInt(6) + 1;
+    });
   }
 }
